@@ -176,3 +176,8 @@ keyfile.json
 
 logs
 .DS_Store
+
+#dbt
+target/
+dbt_packages/
+logs/
