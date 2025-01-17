@@ -181,3 +181,6 @@ logs
 target/
 dbt_packages/
 logs/
+
+#vscode
+.vscode
