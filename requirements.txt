@@ -1,1 +1,2 @@
 dbt-bigquery
+astronomer-cosmos

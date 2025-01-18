@@ -5,6 +5,8 @@ import os
 import zipfile
 import io
 import requests
+from cosmos import DbtDag, ProjectConfig, ProfileConfig, ExecutionConfig
+from cosmos.profiles import PostgresUserPasswordProfileMapping
 
 def download_and_extract_to_public_gcs(**kwargs):
     """
@@ -73,7 +75,7 @@ default_args = {
 
 # Define the DAG
 dag = DAG(
-    'gdrive_to_gcs_pipeline_test',
+    'pipeline_gdrive_to_gcs',
     default_args=default_args,
     description='Download a ZIP from Google Drive, extract, and upload to GCS',
     schedule_interval=None,
