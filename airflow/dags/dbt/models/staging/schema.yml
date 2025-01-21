@@ -1,5 +1,340 @@
-
 version: 2
 
 models:
+  - name: stg_autoqa_ratings
+    description: 'Staging model for the autoqa_ratings table.'
+    columns:
+      - name: autoqa_review_id
+        description: 'Column autoqa_review_id of type STRING'
+      - name: autoqa_rating_id
+        description: 'Column autoqa_rating_id of type STRING'
+      - name: payment_id
+        description: 'Column payment_id of type INTEGER'
+      - name: team_id
+        description: 'Column team_id of type INTEGER'
+      - name: payment_token_id
+        description: 'Column payment_token_id of type INTEGER'
+      - name: external_ticket_id
+        description: 'Column external_ticket_id of type INTEGER'
+      - name: rating_category_id
+        description: 'Column rating_category_id of type INTEGER'
+      - name: rating_category_name
+        description: 'Column rating_category_name of type STRING'
+      - name: rating_scale_score
+        description: 'Column rating_scale_score of type FLOAT'
+      - name: score
+        description: 'Column score of type FLOAT'
+      - name: reviewee_internal_id
+        description: 'Column reviewee_internal_id of type INTEGER'
+  - name: stg_autoqa_reviews
+    description: 'Staging model for the autoqa_reviews table.'
+    columns:
+      - name: autoqa_review_id
+        description: 'Column autoqa_review_id of type STRING'
+      - name: payment_id
+        description: 'Column payment_id of type INTEGER'
+      - name: payment_token_id
+        description: 'Column payment_token_id of type INTEGER'
+      - name: external_ticket_id
+        description: 'Column external_ticket_id of type INTEGER'
+      - name: created_at
+        description: 'Column created_at of type STRING'
+      - name: conversation_created_at
+        description: 'Column conversation_created_at of type STRING'
+      - name: conversation_created_date
+        description: 'Column conversation_created_date of type STRING'
+      - name: team_id
+        description: 'Column team_id of type INTEGER'
+      - name: reviewee_internal_id
+        description: 'Column reviewee_internal_id of type FLOAT'
+      - name: updated_at
+        description: 'Column updated_at of type STRING'
+  - name: stg_autoqa_root_cause
+    description: 'Staging model for the autoqa_root_cause table.'
+    columns:
+      - name: autoqa_rating_id
+        description: 'Column autoqa_rating_id of type STRING'
+      - name: category
+        description: 'Column category of type FLOAT'
+      - name: count
+        description: 'Column count of type FLOAT'
+      - name: root_cause
+        description: 'Column root_cause of type STRING'
   - name: stg_conversations
+    description: 'Staging model for the conversations table.'
+    columns:
+      - name: payment_id
+        description: 'Column payment_id of type INTEGER'
+      - name: payment_token_id
+        description: 'Column payment_token_id of type INTEGER'
+      - name: external_ticket_id
+        description: 'Column external_ticket_id of type INTEGER'
+      - name: conversation_created_at
+        description: 'Column conversation_created_at of type STRING'
+      - name: conversation_created_at_date
+        description: 'Column conversation_created_at_date of type STRING'
+      - name: channel
+        description: 'Column channel of type STRING'
+      - name: assignee_id
+        description: 'Column assignee_id of type INTEGER'
+      - name: updated_at
+        description: 'Column updated_at of type STRING'
+      - name: closed_at
+        description: 'Column closed_at of type STRING'
+      - name: message_count
+        description: 'Column message_count of type INTEGER'
+      - name: last_reply_at
+        description: 'Column last_reply_at of type STRING'
+      - name: language
+        description: 'Column language of type STRING'
+      - name: imported_at
+        description: 'Column imported_at of type STRING'
+      - name: unique_public_agent_count
+        description: 'Column unique_public_agent_count of type INTEGER'
+      - name: public_mean_character_count
+        description: 'Column public_mean_character_count of type FLOAT'
+      - name: public_mean_word_count
+        description: 'Column public_mean_word_count of type FLOAT'
+      - name: private_message_count
+        description: 'Column private_message_count of type INTEGER'
+      - name: public_message_count
+        description: 'Column public_message_count of type INTEGER'
+      - name: klaus_sentiment
+        description: 'Column klaus_sentiment of type STRING'
+      - name: is_closed
+        description: 'Column is_closed of type BOOLEAN'
+      - name: agent_most_public_messages
+        description: 'Column agent_most_public_messages of type INTEGER'
+      - name: first_response_time
+        description: 'Column first_response_time of type FLOAT'
+      - name: first_resolution_time_seconds
+        description: 'Column first_resolution_time_seconds of type FLOAT'
+      - name: full_resolution_time_seconds
+        description: 'Column full_resolution_time_seconds of type FLOAT'
+      - name: most_active_internal_user_id
+        description: 'Column most_active_internal_user_id of type FLOAT'
+      - name: deleted_at
+        description: 'Column deleted_at of type FLOAT'
+  - name: stg_customer_subscriptions
+    description: 'Staging model for the customer_subscriptions table.'
+    columns:
+      - name: subscription_id
+        description: 'Column subscription_id of type STRING'
+      - name: subscription_billing_period
+        description: 'Column subscription_billing_period of type INTEGER'
+      - name: subscription_billing_period_unit
+        description: 'Column subscription_billing_period_unit of type STRING'
+      - name: subscription_customer_id
+        description: 'Column subscription_customer_id of type STRING'
+      - name: subscription_status
+        description: 'Column subscription_status of type STRING'
+      - name: subscription_current_term_start
+        description: 'Column subscription_current_term_start of type INTEGER'
+      - name: subscription_current_term_end
+        description: 'Column subscription_current_term_end of type INTEGER'
+      - name: subscription_next_billing_at
+        description: 'Column subscription_next_billing_at of type INTEGER'
+      - name: subscription_created_at
+        description: 'Column subscription_created_at of type INTEGER'
+      - name: subscription_started_at
+        description: 'Column subscription_started_at of type INTEGER'
+      - name: subscription_activated_at
+        description: 'Column subscription_activated_at of type INTEGER'
+      - name: subscription_created_from_ip
+        description: 'Column subscription_created_from_ip of type STRING'
+      - name: subscription_updated_at
+        description: 'Column subscription_updated_at of type INTEGER'
+      - name: subscription_has_scheduled_changes
+        description: 'Column subscription_has_scheduled_changes of type BOOLEAN'
+      - name: subscription_channel
+        description: 'Column subscription_channel of type STRING'
+      - name: subscription_resource_version
+        description: 'Column subscription_resource_version of type INTEGER'
+      - name: subscription_deleted
+        description: 'Column subscription_deleted of type BOOLEAN'
+      - name: subscription_object
+        description: 'Column subscription_object of type STRING'
+      - name: subscription_coupon
+        description: 'Column subscription_coupon of type STRING'
+      - name: subscription_currency_code
+        description: 'Column subscription_currency_code of type STRING'
+      - name: subscription_subscription_items
+        description: 'Column subscription_subscription_items of type RECORD'
+      - name: subscription_item_tiers
+        description: 'Column subscription_item_tiers of type RECORD'
+      - name: subscription_coupons
+        description: 'Column subscription_coupons of type RECORD'
+      - name: subscription_due_invoices_count
+        description: 'Column subscription_due_invoices_count of type INTEGER'
+      - name: subscription_due_since
+        description: 'Column subscription_due_since of type INTEGER'
+      - name: subscription_total_dues
+        description: 'Column subscription_total_dues of type INTEGER'
+      - name: subscription_mrr
+        description: 'Column subscription_mrr of type INTEGER'
+      - name: subscription_exchange_rate
+        description: 'Column subscription_exchange_rate of type FLOAT'
+      - name: subscription_base_currency_code
+        description: 'Column subscription_base_currency_code of type STRING'
+      - name: subscription_has_scheduled_advance_invoices
+        description: 'Column subscription_has_scheduled_advance_invoices of type BOOLEAN'
+      - name: subscription_create_pending_invoices
+        description: 'Column subscription_create_pending_invoices of type BOOLEAN'
+      - name: subscription_auto_close_invoices
+        description: 'Column subscription_auto_close_invoices of type BOOLEAN'
+      - name: customer_id
+        description: 'Column customer_id of type STRING'
+      - name: customer_first_name
+        description: 'Column customer_first_name of type STRING'
+      - name: customer_last_name
+        description: 'Column customer_last_name of type STRING'
+      - name: customer_email
+        description: 'Column customer_email of type STRING'
+      - name: customer_company
+        description: 'Column customer_company of type STRING'
+      - name: customer_auto_collection
+        description: 'Column customer_auto_collection of type STRING'
+      - name: customer_offline_payment_method
+        description: 'Column customer_offline_payment_method of type STRING'
+      - name: customer_net_term_days
+        description: 'Column customer_net_term_days of type INTEGER'
+      - name: customer_allow_direct_debit
+        description: 'Column customer_allow_direct_debit of type BOOLEAN'
+      - name: customer_created_at
+        description: 'Column customer_created_at of type INTEGER'
+      - name: customer_created_from_ip
+        description: 'Column customer_created_from_ip of type STRING'
+      - name: customer_taxability
+        description: 'Column customer_taxability of type STRING'
+      - name: customer_updated_at
+        description: 'Column customer_updated_at of type INTEGER'
+      - name: customer_pii_cleared
+        description: 'Column customer_pii_cleared of type STRING'
+      - name: customer_channel
+        description: 'Column customer_channel of type STRING'
+      - name: customer_resource_version
+        description: 'Column customer_resource_version of type INTEGER'
+      - name: customer_deleted
+        description: 'Column customer_deleted of type BOOLEAN'
+      - name: customer_object
+        description: 'Column customer_object of type STRING'
+      - name: customer_billing_address_first_name
+        description: 'Column customer_billing_address_first_name of type STRING'
+      - name: customer_billing_address_last_name
+        description: 'Column customer_billing_address_last_name of type STRING'
+      - name: customer_billing_address_email
+        description: 'Column customer_billing_address_email of type STRING'
+      - name: customer_billing_address_company
+        description: 'Column customer_billing_address_company of type STRING'
+      - name: customer_billing_address_line1
+        description: 'Column customer_billing_address_line1 of type STRING'
+      - name: customer_billing_address_city
+        description: 'Column customer_billing_address_city of type STRING'
+      - name: customer_billing_address_country
+        description: 'Column customer_billing_address_country of type STRING'
+      - name: customer_billing_address_zip
+        description: 'Column customer_billing_address_zip of type STRING'
+      - name: customer_billing_address_validation_status
+        description: 'Column customer_billing_address_validation_status of type STRING'
+      - name: customer_billing_address_object
+        description: 'Column customer_billing_address_object of type STRING'
+      - name: customer_card_status
+        description: 'Column customer_card_status of type STRING'
+      - name: customer_promotional_credits
+        description: 'Column customer_promotional_credits of type INTEGER'
+      - name: customer_refundable_credits
+        description: 'Column customer_refundable_credits of type INTEGER'
+      - name: customer_excess_payments
+        description: 'Column customer_excess_payments of type INTEGER'
+      - name: customer_unbilled_charges
+        description: 'Column customer_unbilled_charges of type INTEGER'
+      - name: customer_preferred_currency_code
+        description: 'Column customer_preferred_currency_code of type STRING'
+      - name: customer_mrr
+        description: 'Column customer_mrr of type INTEGER'
+      - name: customer_tax_providers_fields
+        description: 'Column customer_tax_providers_fields of type INTEGER'
+      - name: customer_auto_close_invoices
+        description: 'Column customer_auto_close_invoices of type BOOLEAN'
+      - name: customer_cf_payment_id
+        description: 'Column customer_cf_payment_id of type INTEGER'
+      - name: subscription_auto_collection
+        description: 'Column subscription_auto_collection of type STRING'
+      - name: subscription_offline_payment_method
+        description: 'Column subscription_offline_payment_method of type STRING'
+      - name: customer_billing_address_state_code
+        description: 'Column customer_billing_address_state_code of type STRING'
+      - name: customer_billing_address_state
+        description: 'Column customer_billing_address_state of type STRING'
+      - name: dt_customer_signup_date
+        description: 'Column dt_customer_signup_date of type DATE'
+  - name: stg_manual_rating
+    description: 'Staging model for the manual_rating table.'
+    columns:
+      - name: payment_id
+        description: 'Column payment_id of type INTEGER'
+      - name: team_id
+        description: 'Column team_id of type INTEGER'
+      - name: review_id
+        description: 'Column review_id of type INTEGER'
+      - name: category_id
+        description: 'Column category_id of type INTEGER'
+      - name: rating
+        description: 'Column rating of type FLOAT'
+      - name: cause
+        description: 'Column cause of type STRING'
+      - name: rating_max
+        description: 'Column rating_max of type INTEGER'
+      - name: weight
+        description: 'Column weight of type FLOAT'
+      - name: critical
+        description: 'Column critical of type BOOLEAN'
+      - name: category_name
+        description: 'Column category_name of type STRING'
+  - name: stg_manual_reviews
+    description: 'Staging model for the manual_reviews table.'
+    columns:
+      - name: review_id
+        description: 'Column review_id of type INTEGER'
+      - name: payment_id
+        description: 'Column payment_id of type INTEGER'
+      - name: payment_token_id
+        description: 'Column payment_token_id of type INTEGER'
+      - name: created
+        description: 'Column created of type STRING'
+      - name: conversation_created_at
+        description: 'Column conversation_created_at of type STRING'
+      - name: conversation_created_date
+        description: 'Column conversation_created_date of type STRING'
+      - name: conversation_external_id
+        description: 'Column conversation_external_id of type INTEGER'
+      - name: team_id
+        description: 'Column team_id of type INTEGER'
+      - name: reviewer_id
+        description: 'Column reviewer_id of type INTEGER'
+      - name: reviewee_id
+        description: 'Column reviewee_id of type INTEGER'
+      - name: comment_id
+        description: 'Column comment_id of type FLOAT'
+      - name: scorecard_id
+        description: 'Column scorecard_id of type FLOAT'
+      - name: scorecard_tag
+        description: 'Column scorecard_tag of type STRING'
+      - name: score
+        description: 'Column score of type FLOAT'
+      - name: updated_at
+        description: 'Column updated_at of type STRING'
+      - name: updated_by
+        description: 'Column updated_by of type INTEGER'
+      - name: assignment_review
+        description: 'Column assignment_review of type BOOLEAN'
+      - name: seen
+        description: 'Column seen of type BOOLEAN'
+      - name: disputed
+        description: 'Column disputed of type BOOLEAN'
+      - name: review_time_seconds
+        description: 'Column review_time_seconds of type FLOAT'
+      - name: assignment_name
+        description: 'Column assignment_name of type STRING'
+      - name: imported_at
+        description: 'Column imported_at of type STRING'

@@ -1,0 +1,33 @@
+{{ config(materialized='table') }}
+
+SELECT
+    subscription_id AS subscription_id,
+    subscription_billing_period AS billing_period,
+    subscription_billing_period_unit AS billing_period_unit,
+    subscription_customer_id AS customer_id,
+    subscription_status AS status,
+    subscription_current_term_start AS current_term_start,
+    subscription_current_term_end AS current_term_end,
+    subscription_next_billing_at AS next_billing_at,
+    subscription_created_at AS created_at,
+    subscription_started_at AS started_at,
+    subscription_activated_at AS activated_at,
+    subscription_created_from_ip AS created_from_ip,
+    subscription_updated_at AS updated_at,
+    subscription_has_scheduled_changes AS has_scheduled_changes,
+    subscription_channel AS channel,
+    subscription_resource_version AS resource_version,
+    subscription_deleted AS deleted,
+    subscription_object AS object,
+    subscription_coupon AS coupon,
+    subscription_currency_code AS currency_code,
+    subscription_due_invoices_count AS due_invoices_count,
+    subscription_due_since AS due_since,
+    subscription_total_dues AS total_dues,
+    subscription_mrr AS mrr,
+    subscription_exchange_rate AS exchange_rate,
+    subscription_base_currency_code AS base_currency_code,
+    subscription_has_scheduled_advance_invoices AS has_scheduled_advance_invoices,
+    subscription_create_pending_invoices AS create_pending_invoices,
+    subscription_auto_close_invoices AS auto_close_invoices
+FROM {{ ref('stg_customer_subscriptions') }}

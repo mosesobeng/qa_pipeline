@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: zendesk_assessment
+    description: 'Source data for zendesk assessment.'
+    schema: raw
+    tables:
+      - name: autoqa_ratings
+        description: 'Raw table for autoqa_ratings.'
+      - name: autoqa_reviews
+        description: 'Raw table for autoqa_reviews.'
+      - name: autoqa_root_cause
+        description: 'Raw table for autoqa_root_cause.'
+      - name: conversations
+        description: 'Raw table for conversations.'
+      - name: customer_subscriptions
+        description: 'Raw table for customer_subscriptions.'
+      - name: manual_rating
+        description: 'Raw table for manual_rating.'
+      - name: manual_reviews
+        description: 'Raw table for manual_reviews.'
