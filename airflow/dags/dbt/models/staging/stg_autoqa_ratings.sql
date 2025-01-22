@@ -1,5 +1,3 @@
-
-
 SELECT
     autoqa_review_id,
     autoqa_rating_id,

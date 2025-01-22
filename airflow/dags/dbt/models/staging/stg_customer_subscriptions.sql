@@ -1,5 +1,3 @@
-{{ config(materialized='view') }}
-
 SELECT
     subscription_id,
     subscription_billing_period,

@@ -1,5 +1,3 @@
-{{ config(materialized='view') }}
-
 SELECT
     payment_id,
     payment_token_id,

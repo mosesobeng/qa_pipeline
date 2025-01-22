@@ -75,7 +75,7 @@ default_args = {
 
 # Define the DAG
 dag = DAG(
-    'pipeline_gdrive_to_gcs',
+    'ingestion_gdrive_to_gcs',
     default_args=default_args,
     description='Download a ZIP from Google Drive, extract, and upload to GCS',
     schedule_interval=None,

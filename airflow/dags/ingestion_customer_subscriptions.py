@@ -14,7 +14,7 @@ os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = service_account_path
 
 # Default arguments for the DAG
 default_args = {
-    'owner': 'airflow',
+    'owner': 'Data Engineering',
     'depends_on_past': False,
     'email_on_failure': False,
     'email_on_retry': False,
@@ -23,7 +23,7 @@ default_args = {
 }
 
 dag = DAG(
-    'pipeline_customer_subscriptions',
+    'ingestion_customer_subscriptions',
     default_args=default_args,
     description='ETL pipeline to ingest nested JSON into BigQuery with partitioning by date',
     schedule_interval='@daily',

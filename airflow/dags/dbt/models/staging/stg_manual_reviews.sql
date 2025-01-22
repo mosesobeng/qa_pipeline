@@ -1,5 +1,3 @@
-{{ config(materialized='view') }}
-
 SELECT
     review_id,
     payment_id,
