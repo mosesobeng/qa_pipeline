@@ -5,7 +5,7 @@ I’m splitting this into two sections:
 1. **Preliminary Analysis of Relationships** (No Dimensional Modeling)  
 2. **Dimensional Modeling Overview**
 
-Both diagrams are stored in `.mmd` files inside the `docs/` directory. I’ve converted them to `.png` and placed them in `docs/images/` so they’re easily viewable here.
+Both diagrams are stored as `.mmd` files in the `diagram/` directory. I’ve converted them into `.png` and placed them under `docs/images/` so they’re easily viewable here in this Markdown.
 
 ---
 
@@ -17,7 +17,7 @@ Here’s the **rendered ERD** showing the **six base tables** in their raw form,
 
 ![Non-Modeled ERD](./images/erd_non_modeled.png "Non-Modeled ERD")
 
-> The Mermaid code for this diagram is in `erd_non_modeled.mmd`.
+> The Mermaid code for this diagram lives in `diagram/erd_non_modeled.mmd`.
 
 ---
 
@@ -40,13 +40,13 @@ In this initial phase, I took six base tables and documented how they could be j
    - `manual_rating.review_id` references `manual_reviews.review_id`.
 
 5. **`manual_reviews` ↔ `conversations`**  
-   - **Match on**: `payment_id`, `payment_token_id`, and `conversation_external_id = external_ticket_id`.
+   - **Match on**: `payment_id`, `payment_token_id`, plus `conversation_external_id = external_ticket_id`.
 
-This **preliminary analysis** is purely about the **raw** joins, showing how they link together in the existing form. I haven’t reorganized them into a star schema at this point.
+This **preliminary analysis** focuses purely on **raw** table relationships. I haven’t reorganized them into a star schema at this point.
 
 ---
 
-## Dimensional Modeling Overview (Explicit Entities and Columns)
+## Dimensional Modeling Overview (Star Schema)
 
 ### Diagram
 
@@ -54,11 +54,11 @@ Below is the **rendered ERD** for my **star schema** design:
 
 ![Modeled ERD](./images/erd_modeled.png "Modeled ERD")
 
-> The Mermaid code for this diagram is in `erd_modeled.mmd`.
+> The Mermaid code for this diagram lives in `diagram/erd_modeled.mmd`.
 
 ---
 
-I’m transforming the original six base tables into **dimensions** (describing business objects) and **facts** (representing measurements). I’m listing all columns explicitly, avoiding abbreviations like “etc.”
+I’m transforming the original six base tables into **dimensions** (describing business objects) and **facts** (representing measurements).
 
 ---
 
@@ -271,37 +271,25 @@ Each fact references dimension keys.
 
 ---
 
-### 3. Relationships (No “Etc.”)
+### 3. Relationships 
 
-Here’s a quick summary of how the **Facts** link to the **Dimensions**:
+Here’s a summary of how the **Facts** link to **Dimensions**:
 
 1. **FactAutoQAReviews** → references **DimTeam** (`team_key`), **DimPayment** (`payment_key`), **DimUser** (`reviewee_key`).  
-2. **FactAutoQARatings** → references **DimTeam**, **DimPayment**, **DimUser**, **DimRatingCategory**, and optionally **FactAutoQAReviews** via `autoqa_review_key`.  
+2. **FactAutoQARatings** → references **DimTeam**, **DimPayment**, **DimUser**, **DimRatingCategory**, optionally **FactAutoQAReviews** (via `autoqa_review_key`).  
 3. **FactAutoQARootCause** → references **FactAutoQARatings** by `autoqa_rating_key`.  
-4. **FactManualReviews** → references **DimTeam**, **DimPayment**, **DimUser** (for reviewer/reviewee).  
-5. **FactManualRatings** → references **DimTeam**, **DimPayment**, **DimRatingCategory**, and optionally **FactManualReviews** (`review_id` → `manual_review_key`).  
+4. **FactManualReviews** → references **DimTeam**, **DimPayment**, **DimUser** for reviewer/reviewee.  
+5. **FactManualRatings** → references **DimTeam**, **DimPayment**, **DimRatingCategory**, optionally **FactManualReviews** (`review_id` → `manual_review_key`).  
 6. **FactConversations** → references **DimPayment**, **DimUser** (for `assignee_key`).
 
 ---
 
-### 4. Data Types
+### 4. Design Choices
 
-I assign a clear data type for each column:
-
-- **INT** for integer IDs.  
-- **FLOAT** for numeric measures (`score`, `weight`).  
-- **STRING** for textual (`channel`, `root_cause`).  
-- **BOOLEAN** for true/false.  
-- **TIMESTAMP** (or **DATE**) for time columns (`created_at`, `updated_at`).
-
----
-
-### 5. Design Choices
-
-- **Surrogate Keys**: Each dimension gets a generated key (`*_key`) so I don’t rely directly on raw IDs. This supports future changes more easily.  
-- **Degenerate Dimensions**: Some columns (like `team_id`, `payment_id`) appear in the fact table as well, purely for convenience.  
-- **Fact Separation**: I’m splitting up “AutoQA” vs. “Manual” processes, and “Conversations,” each reflecting distinct business processes.  
-- **Optional vs. Required**: Some columns, like `reviewee_internal_id`, might be optional or only used in certain scenarios.
+- **Surrogate Keys**: Each dimension gets a generated key (`*_key`) so I don’t rely directly on raw IDs.  
+- **Degenerate Dimensions**: Some columns (`team_id`, `payment_id`) also appear in the fact table for convenience.  
+- **Separate Facts**: I’m breaking out “AutoQA,” “Manual,” and “Conversations” because they’re distinct processes.  
+- **Optional vs. Required**: Columns like `reviewee_internal_id` are only used if present in the raw data.
 
 ---
 
@@ -309,10 +297,10 @@ I assign a clear data type for each column:
 
 - **Preliminary Analysis**: Explains how the six base tables link via raw keys (`autoqa_review_id`, `review_id`, etc.).  
 - **Dimensional Model**: Reorganizes them into four main dimensions (`DimTeam`, `DimPayment`, `DimUser`, `DimRatingCategory`) and six fact tables (AutoQA, Manual, Conversations).  
-- **Future Enhancements**: Additional columns (like `team_name`, `user_name`) can be added, time columns can become `TIMESTAMP`, and I can implement Slowly Changing Dimensions if needed.
+- **Future Enhancements**: Could add more columns (like `team_name`, `user_name`), convert string-based dates to `TIMESTAMP`, or implement Slowly Changing Dimensions.
 
 > **Note**: The raw Mermaid `.mmd` files are:  
-> - `erd_non_modeled.mmd` (for the preliminary, no-model diagram)  
-> - `erd_modeled.mmd` (for the star schema design)  
+> - `erd_non_modeled.mmd` (for the preliminary diagram)  
+> - `erd_modeled.mmd` (for the star schema)  
 
-I converted each to `.png` using a Mermaid CLI and placed them in `./images/` for easy reference. 
+They live in the `diagram/` folder. I converted them to `.png` using a Mermaid CLI and placed them in `docs/images/` for easy reference.
