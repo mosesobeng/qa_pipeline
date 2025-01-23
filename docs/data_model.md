@@ -1,4 +1,3 @@
-```markdown
 # Data Model Documentation
 
 I’m splitting this into two sections:
@@ -317,4 +316,3 @@ I assign a clear data type for each column:
 > - `erd_modeled.mmd` (for the star schema design)  
 
 I converted each to `.png` using a Mermaid CLI and placed them in `./images/` for easy reference. 
-```
