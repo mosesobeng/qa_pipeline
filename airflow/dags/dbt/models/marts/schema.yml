@@ -1,0 +1,149 @@
+version: 2
+
+models:
+
+  - name: dim_team
+    description: "Dimension for teams"
+    columns:
+      - name: team_key
+        tests:
+          - not_null
+          - unique
+      - name: team_id
+
+  - name: dim_payment
+    description: "Dimension for payment records"
+    columns:
+      - name: payment_key
+        tests:
+          - not_null
+          - unique
+      - name: payment_id
+
+  - name: dim_user
+    description: "Dimension for user IDs (reviewers, reviewees, assignees, etc.)"
+    columns:
+      - name: user_key
+        tests:
+          - not_null
+          - unique
+      - name: user_id
+
+  - name: dim_rating_category
+    description: "Dimension for rating categories"
+    columns:
+      - name: rating_category_key
+        tests:
+          - not_null
+          - unique
+      - name: category_id
+
+  - name: fact_autoqa_reviews
+    description: "Fact table for autoqa reviews"
+    columns:
+      - name: autoqa_review_key
+        tests:
+          - not_null
+          - unique
+      - name: payment_key
+        tests:
+          - relationships:
+              to: ref('dim_payment')
+              field: payment_key
+      - name: team_key
+        tests:
+          - relationships:
+              to: ref('dim_team')
+              field: team_key
+      - name: reviewee_key
+        tests:
+          - relationships:
+              to: ref('dim_user')
+              field: user_key
+
+  - name: fact_autoqa_ratings
+    description: "Fact table for autoqa rating details"
+    columns:
+      - name: autoqa_rating_key
+        tests:
+          - not_null
+          - unique
+      - name: autoqa_rating_id
+      - name: autoqa_review_key
+      - name: rating_category_key
+        tests:
+          - relationships:
+              to: ref('dim_rating_category')
+              field: rating_category_key
+
+  - name: fact_autoqa_root_cause
+    description: "Fact table for root causes of autoqa ratings"
+    columns:
+      - name: autoqa_root_cause_key
+        tests:
+          - not_null
+          - unique
+      - name: autoqa_rating_key
+        tests:
+          - relationships:
+              to: ref('fact_autoqa_ratings')
+              field: autoqa_rating_key
+
+  - name: fact_manual_reviews
+    description: "Fact table for manual QA reviews"
+    columns:
+      - name: manual_review_key
+        tests:
+          - not_null
+          - unique
+      - name: payment_key
+        tests:
+          - relationships:
+              to: ref('dim_payment')
+              field: payment_key
+      - name: team_key
+        tests:
+          - relationships:
+              to: ref('dim_team')
+              field: team_key
+      - name: reviewer_key
+        tests:
+          - relationships:
+              to: ref('dim_user')
+              field: user_key
+      - name: reviewee_key
+        tests:
+          - relationships:
+              to: ref('dim_user')
+              field: user_key
+
+  - name: fact_manual_ratings
+    description: "Fact table for category-level manual QA ratings"
+    columns:
+      - name: manual_rating_key
+        tests:
+          - not_null
+          - unique
+      - name: rating_category_key
+        tests:
+          - relationships:
+              to: ref('dim_rating_category')
+              field: rating_category_key
+
+  - name: fact_conversations
+    description: "Fact table capturing conversation metrics"
+    columns:
+      - name: conversation_key
+        tests:
+          - not_null
+          - unique
+      - name: payment_key
+        tests:
+          - relationships:
+              to: ref('dim_payment')
+              field: payment_key
+      - name: assignee_key
+        tests:
+          - relationships:
+              to: ref('dim_user')
+              field: user_key
