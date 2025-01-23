@@ -1,0 +1,29 @@
+![Non-Modeled ERD](./images/erd_non_modeled.png "Non-Modeled ERD")
+
+# Preliminary Analysis of Relationships (No Dimensional Modeling)
+
+In this initial phase, we are reviewing **six base tables** and identifying how they can be joined **without** applying any dimensional modeling. Below is a summary of each relevant join:
+
+1. **`autoqa_reviews` → `autoqa_ratings`**  
+   - **Key**: `autoqa_review_id`  
+   - `autoqa_ratings.autoqa_review_id` references `autoqa_reviews.autoqa_review_id`.  
+
+2. **`autoqa_ratings` → `autoqa_root_cause`**  
+   - **Key**: `autoqa_rating_id`  
+   - `autoqa_root_cause.autoqa_rating_id` references `autoqa_ratings.autoqa_rating_id`.  
+
+3. **`autoqa_reviews` ↔ `conversations`**  
+   - **Match on**: `payment_id`, `payment_token_id`, and `external_ticket_id`  
+   - If these three columns match in both tables, you can join `autoqa_reviews` with `conversations`.
+
+4. **`manual_reviews` → `manual_rating`**  
+   - **Key**: `review_id`  
+   - `manual_rating.review_id` references `manual_reviews.review_id`.
+
+5. **`manual_reviews` ↔ `conversations`**  
+   - **Match on**: `payment_id`, `payment_token_id`, plus `conversation_external_id = external_ticket_id`  
+   - If your data logic supports linking `conversation_external_id` to `external_ticket_id`, these columns can join the two tables.
+
+This **preliminary analysis** focuses on the **raw relationships** between the six tables. We have **not** yet reorganized or optimized them into a dimensional (star) schema. Instead, we are simply documenting how they **can** be joined in their current form.
+
+
