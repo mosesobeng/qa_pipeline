@@ -31,6 +31,7 @@ Below is a high-level project layout:
     - `*.sql`: sql queries.
 
 ![Overview](docs/images/overview.png "Overview")
+> Technology Stack and Flow Overview
 ---
 
 ## 2. Ingestion & Medallion Layers
@@ -80,7 +81,7 @@ I rely on **incremental** logic with `unique_key` in each dimension/fact. This a
 
 ![DBT Build Models](docs/images/transformation_dag.png "DBT Build Models")
 
-> The dbt code for this lives in `airflow/dags/dbt/models/marts` and airflow dag is airflow/dags/transformation_data_warehouse.py.
+> The dbt code for this lives in `airflow/dags/dbt/models/marts` and airflow dag is `airflow/dags/transformation_data_warehouse.py`.
 
 For more detail, see:
  **[Doc: Data Model Implementation](docs/data_model_implementation.md)**
