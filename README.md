@@ -9,7 +9,7 @@ This file provides a top-level overview of the entire solution, referencing deta
 
 ---
 
-## 1. Project Overview
+##  Project Overview
 
 Below is a high-level project layout:
 
@@ -34,7 +34,7 @@ Below is a high-level project layout:
 > Technology Stack and Flow Overview
 ---
 
-## 2. Ingestion & Medallion Layers
+##  Ingestion & Medallion Layers
 
 The assessment source zip file is ingested from the orginal google drive path and placed in a GCS bucket (the “**raw**” layer). Then load into `zendesk-assessment.raw` BigQuery dataset with minimal changes. Optionally transform or refine data in the `zendesk-assessment.refined` dataset (silver). Final dimensional or fact tables live in `zendesk-assessment.dw` (gold).
 
@@ -49,7 +49,7 @@ For more detail, see:
 
 ---
 
-## 3. Data Modeling
+##  Data Modeling
 
 The data modeling process in this project is divided into two main phases:
 
@@ -75,7 +75,7 @@ For more detail, see:
 
 ---
 
-## 3. Data Model Implementation
+##  Data Model Implementation
 
 I rely on **incremental** logic with `unique_key` in each dimension/fact. This allows partial loads, merges new columns, and handles schema changes. I test each model with not_null, unique, and relationship constraints in `schema.yml`.
 
@@ -88,13 +88,13 @@ For more detail, see:
 
 ---
 
-## 4. Queries 
+##  Queries 
 
-SQL related queries for task `A3` are found in **[DIR: Scripts](scripts/)**
+SQL related queries for task `A3` are found in **[Dir: Scripts](scripts/)**
 
 ---
 
-## 5. Data Pipeline for `etl.json`
+##  Data Pipeline for `etl.json`
 
 One DAG processes the nested JSON (`etl.json`) from GCS. I flatten it with `pd.json_normalize` for simplicity. More advanced usage might split out sub-objects into separate tables. The pipeline also merges records incrementally, ensuring only changed or new data is updated.
 
@@ -103,12 +103,37 @@ For more detail, see:
  **[Doc: ETL JSON Data Pipeline](docs/data_pipeline_for_json_file.md)**
 
 ---
+##  Future Consideration 
 
-## 6. Dashboard 
+###  Future-Proofing 
 
-Built a BI dashboard in Tableau Public on top of `zendesk-assessment.dw`. 
+- The pipeline uses `Airflow` + `dbt Core` + `BigQuery` in a layered approach, promoting modularity.  
+- Containerization (`Docker`, `Kubernetes`) ensures scalable deployment and avoids cloud lock-in.  
+- Proper partitioning and strong data governance practices help keep the architecture resilient and cost-effective as data volumes rise.
 
-- **[LINK: Dashboard ](https://public.tableau.com/app/profile/moses.obeng/viz/qa_dashboard/Sheet1?publish=yes)**
+---
+
+###  Machine Learning Integration
+
+- Container-based ML pipelines can ingest refined data, train models, and serve predictions in a flexible and cloud-agnostic manner.  
+- Potential solutions include sentiment analysis models, predictive scoring, and time series forecasting—integrated seamlessly with existing transformations and dashboards.
+
+
+For more detail, see:
+ **[Doc: Future Consideration](docs/data_pipeline_for_json_file.md)**
+
+---
+
+##  Dashboard 
+
+- Dashboards was built in `Tableau Public` against the **Gold** BigQuery tables for streamlined access to curated, business-ready data.  
+- Visualizations focus on ticket scores, reviewer performance, root causes, and time-based trends.  
+- Documentation captures the rationale behind each metric and chart type.
+
+For more detail, see:
+ **[Doc: Dashboarding](docs/dashboarding.md)**
+
+- **[LINK: Dashboard ](https://public.tableau.com/app/profile/moses.obeng/viz/qa_dashboard_/Overview?publish=yes)**
 
 ---
 
