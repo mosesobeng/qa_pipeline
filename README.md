@@ -61,21 +61,20 @@ The data modeling process in this project is divided into two main phases:
 
 2. **Dimensional Modeling**:
    - Optimizes the structure for analytics by organizing data into fact and dimension tables.
-   - A second ERD, reflecting the dimensional model, is provided in the [modeled ERD](docs/diagram/erd_modeled.mmd).
+   - A second ERD, reflecting the dimensional model, is provided in the [modeled ERD](docs/images/erd_modeled.png) and [modeled ERD code](diagram/erd_modeled.mmd).
 
 For more detail, see:
- **[Doc: Data Model](docs/data_model.md)**
+ **[Doc: Data Modeling](docs/data_model.md)**
 
-For a detailed explanation and diagrams, see the [full write-up on Data Modeling](docs/data_model.md).
 
---
+---
 
 ## 3. Data Model Implementation
 
 I rely on **incremental** logic with `unique_key` in each dimension/fact. This allows partial loads, merges new columns, and handles schema changes. I test each model with not_null, unique, and relationship constraints in `schema.yml`.
 
 For more detail, see:
-- **[Doc #1: DBT Implementation & Testing](docs/data_implementation.md)**
+ **[Doc: Data Model Implementation](docs/data_model_implementation.md)**
 
 ---
 
