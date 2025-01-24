@@ -17,7 +17,7 @@ Here’s the **rendered ERD** showing the **six base tables** in their raw form,
 
 ![Non-Modeled ERD](./images/erd_non_modeled.png "Non-Modeled ERD")
 
-> The Mermaid code for this diagram lives in `diagram/erd_non_modeled.mmd`.
+> The Mermaid code for this model lives in `diagram/erd_non_modeled.mmd`.
 
 ---
 
@@ -54,7 +54,7 @@ Below is the **rendered ERD** for my **star schema** design:
 
 ![Modeled ERD](./images/erd_modeled.png "Modeled ERD")
 
-> The Mermaid code for this diagram lives in `diagram/erd_modeled.mmd`.
+> The Mermaid code for this model lives in `diagram/erd_modeled.mmd`.
 
 ---
 
