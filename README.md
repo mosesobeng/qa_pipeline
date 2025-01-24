@@ -43,9 +43,32 @@ The assessment source zip file is ingested from the orginal google drive path an
 4. **`transformation_data_warehouse.py`**: Runs dbt to incrementally build models for the gold layer 
 
 For more detail, see:
-- **[Doc: Data Ingestion](docs/data_ingestion.md)**
+ **[Doc: Data Ingestion](docs/data_ingestion.md)**
 
 ---
+
+## 3. Data Modeling
+
+The data modeling process in this project is divided into two main phases:
+
+1. **Preliminary Analysis of Relationships**:
+   - Explores relationships between six base tables without applying dimensional modeling techniques.
+   - Key relationships include:
+     - `autoqa_reviews` ↔ `autoqa_ratings` ↔ `autoqa_root_cause`
+     - `autoqa_reviews` ↔ `conversations`
+     - `conversations` ↔ `conversation_messages` and `conversation_surveys`
+   - An Entity-Relationship Diagram (ERD) for this phase is available in the [non-modeled ERD](docs/images/erd_non_modeled.png) and [non-modeled ERD code](diagram/erd_non_modeled.mmd).
+
+2. **Dimensional Modeling**:
+   - Optimizes the structure for analytics by organizing data into fact and dimension tables.
+   - A second ERD, reflecting the dimensional model, is provided in the [modeled ERD](docs/diagram/erd_modeled.mmd).
+
+For more detail, see:
+ **[Doc: Data Model](docs/data_model.md)**
+
+For a detailed explanation and diagrams, see the [full write-up on Data Modeling](docs/data_model.md).
+
+--
 
 ## 3. Data Model Implementation
 
