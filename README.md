@@ -63,6 +63,10 @@ The data modeling process in this project is divided into two main phases:
    - Optimizes the structure for analytics by organizing data into fact and dimension tables.
    - A second ERD, reflecting the dimensional model, is provided in the [modeled ERD](docs/images/erd_modeled.png) and [modeled ERD code](diagram/erd_modeled.mmd).
 
+![Modeled ERD](docs/images/erd_modeled.png "Modeled ERD")
+
+> The Mermaid code for this model lives in `diagram/erd_modeled.mmd`.
+
 For more detail, see:
  **[Doc: Data Modeling](docs/data_model.md)**
 
