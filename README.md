@@ -80,7 +80,7 @@ For more detail, see:
 
 ## 4. Queries 
 
-SQL related queries are found in **[DIR: scripts](scripts/)**
+SQL related queries for task `A3` are found in **[DIR: scripts](scripts/)**
 
 ---
 
