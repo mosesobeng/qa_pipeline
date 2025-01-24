@@ -21,6 +21,7 @@ WITH base AS (
 )
 
 SELECT
+DISTINCT
   MD5(CONCAT(autoqa_rating_id, COALESCE(root_cause, ''))) AS autoqa_root_cause_key,
   autoqa_rating_id,
   MD5(autoqa_rating_id) AS autoqa_rating_key, 

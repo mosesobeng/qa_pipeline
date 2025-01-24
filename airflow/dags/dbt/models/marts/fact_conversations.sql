@@ -33,13 +33,9 @@ WITH base AS (
     most_active_internal_user_id,
     deleted_at
   FROM {{ ref('stg_conversations') }}
-),
 
-filtered AS (
-  SELECT *
-  FROM base
   {% if is_incremental() %}
-    WHERE updated_at > (
+    WHERE CAST(updated_at AS TIMESTAMP) > (
       SELECT IFNULL(MAX(updated_at), TIMESTAMP('1900-01-01'))
       FROM {{ this }}
     )
@@ -47,14 +43,16 @@ filtered AS (
 )
 
 SELECT
+DISTINCT
   MD5(CONCAT(
     CAST(b.payment_id AS STRING), 
     '_', 
     CAST(external_ticket_id AS STRING), 
     '_', 
-    COALESCE(conversation_created_at, '')
+    COALESCE(conversation_created_at, ''), 
+    '_', 
+    CAST(message_count AS STRING)
   )) AS conversation_key,
-
   dp.payment_key,
   payment_token_id,
   external_ticket_id,
@@ -84,12 +82,11 @@ SELECT
   public_mean_word_count,
   most_active_internal_user_id,
 
-  -- date keys if desired
   CAST(FORMAT_TIMESTAMP('%Y%m%d', SAFE.PARSE_TIMESTAMP('%Y-%m-%d %H:%M:%S', conversation_created_at)) AS INT) AS date_key_created,
   CAST(FORMAT_TIMESTAMP('%Y%m%d', b.updated_at) AS INT) AS date_key_updated,
   CAST(FORMAT_TIMESTAMP('%Y%m%d', SAFE.PARSE_TIMESTAMP('%Y-%m-%d %H:%M:%S', closed_at)) AS INT) AS date_key_closed
 
-FROM filtered b
+FROM base b
 LEFT JOIN {{ ref('dim_payment') }} dp
   ON MD5(CAST(b.payment_id AS STRING)) = dp.payment_key
 LEFT JOIN {{ ref('dim_user') }} du

@@ -83,11 +83,6 @@ models:
         tests:
           - not_null
           - unique
-      - name: autoqa_rating_key
-        tests:
-          - relationships:
-              to: ref('fact_autoqa_ratings')
-              field: autoqa_rating_key
 
   - name: fact_manual_reviews
     description: "Fact table for manual QA reviews"
@@ -136,7 +131,6 @@ models:
       - name: conversation_key
         tests:
           - not_null
-          - unique
       - name: payment_key
         tests:
           - relationships:

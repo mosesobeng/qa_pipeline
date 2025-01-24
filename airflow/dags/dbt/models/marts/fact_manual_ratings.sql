@@ -27,6 +27,7 @@ WITH base AS (
 )
 
 SELECT
+DISTINCT
   MD5(CONCAT(CAST(review_id AS STRING), '_', CAST(b.category_id AS STRING))) AS manual_rating_key,
   review_id,
   b.category_id,
