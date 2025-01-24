@@ -84,33 +84,29 @@ SQL related queries for task `A3` are found in **[DIR: scripts](scripts/)**
 
 ---
 
-## 5. JSON Pipeline & Future Expansion
+## 5. Data Pipeline for `etl.json`
 
-One DAG processes a nested JSON (`etl.json`) from GCS. I flatten it with `pd.json_normalize` for simplicity. More advanced usage might split out sub-objects into separate tables. The pipeline also merges records incrementally, ensuring only changed or new data is updated.
+One DAG processes the nested JSON (`etl.json`) from GCS. I flatten it with `pd.json_normalize` for simplicity. More advanced usage might split out sub-objects into separate tables. The pipeline also merges records incrementally, ensuring only changed or new data is updated.
 
-**Future Considerations**:
-- Partition & cluster for large volumes.
-- Introduce ML models on curated data.
-- Possibly adopt streaming if real-time updates are required.
 
 See:
-- **[Doc #3: ETL JSON + Future Considerations](docs/json_and_future.md)**
+- **[Doc: ETL JSON Data Pipeline](docs/data_pipeline_for_json_file.md)**
 
 ---
 
-## 6. Dashboard Development & GPT Tools
+## 6. Dashboard 
 
-Built a BI dashboard in Tableau Public on top of `zendesk-assessment.dw`. The star schema fosters easy slicing by dimension. For an AI-driven approach.
+Built a BI dashboard in Tableau Public on top of `zendesk-assessment.dw`. The star schema fosters easy slicing by dimension.  
 
-See:
-- **[Doc #4: Dashboard ](docs/dashboard_gpt_prompts.md)**
+
+- **[Doc #4: Dashboard ](docs/dashboard.md)**
 
 ---
 
-## 7. Quick Start
+## 7. Quick Evaluation
 
 1. **Airflow**:  
-   - Deploy these DAGs (`ingestion_*.py`, `transformation_data_warehouse.py`).  
+   - Deploy the DAGs (`ingestion_*.py`, `transformation_data_warehouse.py`).  
    - Supply a GCS bucket name and BigQuery credentials.
 2. **dbt**:  
    - `cd dbt/`, adjust `profiles.yml` to match BigQuery project, run `dbt run`.  
