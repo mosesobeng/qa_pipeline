@@ -88,7 +88,7 @@ For more detail, see:
 
 ## 4. Queries 
 
-SQL related queries for task `A3` are found in **[DIR: scripts](scripts/)**
+SQL related queries for task `A3` are found in **[DIR: scripts](Scripts/)**
 
 ---
 
@@ -97,7 +97,7 @@ SQL related queries for task `A3` are found in **[DIR: scripts](scripts/)**
 One DAG processes the nested JSON (`etl.json`) from GCS. I flatten it with `pd.json_normalize` for simplicity. More advanced usage might split out sub-objects into separate tables. The pipeline also merges records incrementally, ensuring only changed or new data is updated.
 
 
-See:
+For more detail, see:
 - **[Doc: ETL JSON Data Pipeline](docs/data_pipeline_for_json_file.md)**
 
 ---
