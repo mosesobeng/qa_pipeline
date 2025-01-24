@@ -104,10 +104,9 @@ For more detail, see:
 
 ## 6. Dashboard 
 
-Built a BI dashboard in Tableau Public on top of `zendesk-assessment.dw`. The star schema fosters easy slicing by dimension.  
+Built a BI dashboard in Tableau Public on top of `zendesk-assessment.dw`. 
 
-
-- **[Doc #4: Dashboard ](docs/dashboard.md)**
+- **[LINK: Dashboard ](https://public.tableau.com/app/profile/moses.obeng/viz/qa_dashboard/Sheet1?publish=yes)**
 
 ---
 
@@ -117,7 +116,7 @@ Built a BI dashboard in Tableau Public on top of `zendesk-assessment.dw`. The st
    - Deploy the DAGs (`ingestion_*.py`, `transformation_data_warehouse.py`).  
    - Supply a GCS bucket name and BigQuery credentials.
 2. **dbt**:  
-   - `cd dbt/`, adjust `profiles.yml` to match BigQuery project, run `dbt run`.  
+   - `cd dbt/`, adjust `profiles.yml` to match BigQuery project, run `dbt run --full-refresh`.  
 3. **Validation**:  
    - Use `dbt test`.  
    - Check results in the BigQuery console (`zendesk-assessment.dw` dataset).  
