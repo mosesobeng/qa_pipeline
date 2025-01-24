@@ -1,11 +1,11 @@
 
 
 
-# QA Pipeline Project - Main README
+# QA Pipeline - Klaus Data Engineer Project
 
 **Repo**: [github.com/mosesobeng/qa_pipeline](https://github.com/mosesobeng/qa_pipeline)
 
-This file provides a top-level overview of the entire solution, referencing detailed docs and code.
+This file provides a top-level overview of the entire solution, referencing detailed documentation and code.
 
 ---
 
@@ -15,9 +15,9 @@ Below is a high-level layout:
 
 - **airflow/**:
   - DAGs: 
-    - `ingestion_gdrive_to_gcs.py`: Ingest ZIP data from Google Drive to GCS.
+    - `ingestion_gdrive_to_gcs.py`: Ingest Assessment ZIP data from Google Drive to GCS.
     - `ingestion_quality_assurance.py`: Load raw CSV to BigQuery.
-    - `ingestion_customer_subscriptions.py`: JSON ingestion & merging.
+    - `ingestion_customer_subscriptions.py`: JSON ingestion to BigQuery.
     - `transformation_data_warehouse.py`: Orchestrates dbt transformations.
 - **dbt/**:
   - `models/marts/*`: Dimensions and Fact SQL models (e.g. `dim_team.sql`, `fact_autoqa_reviews.sql`).
@@ -40,7 +40,10 @@ The assessment source zip file is ingested from the orginal google drive path an
 1. **`ingestion_gdrive_to_gcs.py`**: A single-step PythonOperator to download & unzip.  
 2. **`ingestion_quality_assurance.py`**: Parallel load multiple csv from GCS → BigQuery.  
 3. **`ingestion_customer_subscriptions.py`**: Incremental ingests JSON `etl.json` data.  
-4. **`transformation_data_warehouse.py`**: Runs dbt incremental models to transform all the data in the silver layer.
+4. **`transformation_data_warehouse.py`**: Runs dbt to incrementally build models for the gold layer 
+
+For more detail, see:
+- **[Doc: Data Ingestion](docs/data_ingestion.md)**
 
 ---
 
