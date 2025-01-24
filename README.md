@@ -9,9 +9,9 @@ This file provides a top-level overview of the entire solution, referencing deta
 
 ---
 
-## 1. Project Structure
+## 1. Project Overview
 
-Below is a high-level layout:
+Below is a high-level project layout:
 
 - **airflow/**:
   - DAGs: 
@@ -30,6 +30,7 @@ Below is a high-level layout:
 - **scripts/**:
     - `*.sql`: sql queries.
 
+![Overview](docs/images/overview.png "Overview")
 ---
 
 ## 2. Ingestion & Medallion Layers
