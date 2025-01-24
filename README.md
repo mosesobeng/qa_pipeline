@@ -78,14 +78,9 @@ For more detail, see:
 
 ---
 
-## 4. Queries (Weighted Scores & Averages)
+## 4. Queries 
 
-To compute rating scores ignoring `rating=42`, or average scores by ticket or reviewee, I show examples using:
-- “Modeled” data in `zendesk-assessment.dw`
-- “Unmodeled” data in `zendesk-assessment.raw`
-
-See:
-- **[Doc #2: SQL Queries for Weighted & Averages](docs/sql_queries.md)**
+SQL related queries are found in **[DIR: scripts](scripts/)**
 
 ---
 
