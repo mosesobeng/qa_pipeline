@@ -77,6 +77,10 @@ For more detail, see:
 
 I rely on **incremental** logic with `unique_key` in each dimension/fact. This allows partial loads, merges new columns, and handles schema changes. I test each model with not_null, unique, and relationship constraints in `schema.yml`.
 
+![DBT Build Models](docs/images/transformation_dag.png "DBT Build Models")
+
+> The dbt code for this lives in `airflow/dags/dbt/models/marts` and airflow dag is airflow/dags/transformation_data_warehouse.py.
+
 For more detail, see:
  **[Doc: Data Model Implementation](docs/data_model_implementation.md)**
 
