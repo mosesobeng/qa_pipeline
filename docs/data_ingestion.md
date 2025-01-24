@@ -1,7 +1,7 @@
-# Airflow Pipeline Documentation
+# Ingestion Pipeline Documentation
 
-This document outlines an ETL pipeline on **Google Cloud** that:
-1. Pulls source files from an external location (Google Drive).
+This document outlines an Ingestion pipeline on **Google Cloud** that:
+1. Pulls source assignment files from an external location (Google Drive).
 2. Lands them in a Google Cloud Storage (GCS) bucket (raw layer).
 3. Loads them into **BigQuery** using a **medallion**-style architecture:
    - **Raw** (BigQuery “raw” dataset)
@@ -10,18 +10,13 @@ This document outlines an ETL pipeline on **Google Cloud** that:
 
 ## 1. Brief Overview
 
-The pipeline is composed of two main DAGs:
+The ingestion pipeline is composed of two main DAGs:
 - **DAG** (for ingestion from Google Drive into GCS).
-- **DAG** (for loading from GCS into BigQuery “raw” and potentially subsequent transformations).
+- **DAG** (for loading from GCS into BigQuery “raw” and only ingestion level transformations).
 
-### Where the Architecture/Flow Diagram Goes
+### Ingestion Pipeline Diagram 
 
-Below is where I would insert an architecture image or flow diagram depicting:
-- **Source**: Google Drive
-- **Landing**: GCS “raw” bucket
-- **Raw Dataset**: BigQuery (dataset name, e.g. `raw`)
-- **Staging/Silver**: BigQuery transformations (e.g. via dbt best practices)
-- **Curated/Mart**: The final “gold” dataset in BigQuery for analytics
+![Ingestion Pipeline](./images/ingestion_pipeline_architecture.png "Ingestion Pipeline")
 
 *(You can store or reference any relevant .png/.jpg here, for example `./images/airflow_pipeline_architecture.png`.)*
 
@@ -65,11 +60,4 @@ Below is where I would insert an architecture image or flow diagram depicting:
 - **Maintaining Clear Data Lineage**: Always keep track of which version of raw data leads to which transformations.
 - **Security & Governance**: GCS bucket access, IAM roles in BigQuery, and service account keys should be carefully secured.
 - **Orchestration**: Airflow dependencies can be configured to ensure any transformations wait until raw data load completes.
-
-## 6. Deliverables in Markdown
-
-This document (in Markdown) serves as the final user-facing explanation of:
-1. The pipeline flow (source → GCS → BigQuery raw → staging → curated).
-2. The medallion architecture rationale.
-3. Key considerations for schema evolution, reliability, and best practices.
 
