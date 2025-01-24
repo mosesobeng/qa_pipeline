@@ -1,12 +1,12 @@
 # Ingestion Pipeline Documentation
 
-This document outlines an Ingestion pipeline on **Google Cloud** that:
+This document outlines an Ingestion pipeline:
 1. Pulls source assignment files from an external location (Google Drive).
 2. Lands them in a Google Cloud Storage (GCS) bucket (raw layer).
 3. Loads them into **BigQuery** using a **medallion**-style architecture:
    - **Raw** (BigQuery “raw” dataset)
-   - **Staging** (BigQuery “silver” dataset)
-   - **Curated/Mart** (BigQuery “gold” dataset)
+   - **Staging** (BigQuery “silver” dataset) - at later stage of data pipeline
+   - **Curated/Mart** (BigQuery “gold” dataset) at later stage of data pipeline
 
 ## 1. Brief Overview
 
@@ -18,7 +18,6 @@ The ingestion pipeline is composed of two main DAGs:
 
 ![Ingestion Pipeline](./images/ingestion_pipeline_architecture.png "Ingestion Pipeline")
 
-*(You can store or reference any relevant .png/.jpg here, for example `./images/airflow_pipeline_architecture.png`.)*
 
 ## 2. Pipeline Steps
 
@@ -34,7 +33,7 @@ The ingestion pipeline is composed of two main DAGs:
    - Load the exact CSV content from GCS into a BigQuery dataset called “raw” (e.g. `zendesk-assessment.raw`).  
    - This step ensures we have an immutable snapshot of the data, with minimal transformation.
 
-4. **Optional Staging (Silver) and Curated (Gold) Steps**  
+4. **Future Stages (Silver) and Curated (Gold) Steps**  
    - **Staging**: A “silver” dataset in BigQuery, where data might be cleaned or lightly standardized (often done with dbt).
    - **Curated/Mart**: A “gold” dataset in BigQuery for analytics, using star schemas or dimensional models. This is where the final “modeled data” lives.
 
