@@ -19,10 +19,10 @@ Below is a high-level project layout:
     - `ingestion_quality_assurance.py`: Load raw CSV to BigQuery.
     - `ingestion_customer_subscriptions.py`: JSON ingestion to BigQuery.
     - `transformation_data_warehouse.py`: Orchestrates dbt transformations.
-- **dbt/**:
-  - `models/marts/*`: Dimensions and Fact SQL models (e.g. `dim_team.sql`, `fact_autoqa_reviews.sql`).
-  - `models/staging/*`: Staging references to raw tables (e.g. `stg_autoqa_reviews.sql`).
-  - `schema.yml`, `sources.yml`: Testing & source definitions.
+        - **dbt/**:
+        - `models/marts/*`: Dimensions and Fact SQL models (e.g. `dim_team.sql`, `fact_autoqa_reviews.sql`).
+        - `models/staging/*`: Staging references to raw tables (e.g. `stg_autoqa_reviews.sql`).
+        - `schema.yml`, `sources.yml`: Testing & source definitions.
 - **diagram/**:
   - `erd_non_modeled.mmd`, `erd_modeled.mmd`: Mermaid files for the ERDs.
 - **docs/**:
@@ -143,7 +143,7 @@ For more detail, see:
    - Deploy the DAGs (`ingestion_*.py`, `transformation_data_warehouse.py`).  
    - Supply a GCS bucket name and BigQuery credentials.
 2. **dbt**:  
-   - `cd dbt/`, adjust `profiles.yml` to match BigQuery project, run `dbt run --full-refresh`.  
+   - `cd airflow/dags/dbt/`, adjust `profiles.yml` to match BigQuery project, run `dbt run --full-refresh`.  
 3. **Validation**:  
    - Use `dbt test`.  
    - Check results in the BigQuery console (`zendesk-assessment.dw` dataset).  
