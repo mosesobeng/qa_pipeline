@@ -1,0 +1,162 @@
+erDiagram
+
+    %% -----------------------------
+    %% TABLE: DIM_DATE
+    %% -----------------------------
+    DIM_DATE {
+        int date_key PK
+        date calendar_date
+        int year
+        int month
+        int day
+        int day_of_week
+        string day_name
+        int quarter
+    }
+
+    %% -----------------------------
+    %% TABLE: DIM_TEAM
+    %% -----------------------------
+    DIM_TEAM {
+        string team_key PK
+        int team_id
+    }
+
+    %% -----------------------------
+    %% TABLE: DIM_PAYMENT
+    %% -----------------------------
+    DIM_PAYMENT {
+        string payment_key PK
+        int payment_id
+    }
+
+    %% -----------------------------
+    %% TABLE: DIM_USER
+    %% -----------------------------
+    DIM_USER {
+        string user_key PK
+        int user_id
+    }
+
+    %% -----------------------------
+    %% TABLE: DIM_RATING_CATEGORY
+    %% -----------------------------
+    DIM_RATING_CATEGORY {
+        string rating_category_key PK
+        int category_id
+        string category_name
+    }
+
+    %% -----------------------------
+    %% TABLE: FACT_AUTOQA_REVIEWS
+    %% -----------------------------
+    FACT_AUTOQA_REVIEWS {
+        string autoqa_review_key PK
+        string natural_review_id
+        string payment_key FK
+        string team_key FK
+        string reviewee_key FK
+        int date_key_created FK
+        int date_key_updated FK
+        int date_key_conversation FK
+    }
+
+    %% -----------------------------
+    %% TABLE: FACT_AUTOQA_RATINGS
+    %% -----------------------------
+    FACT_AUTOQA_RATINGS {
+        string autoqa_rating_key PK
+        string autoqa_review_key
+        string payment_key FK
+        string team_key FK
+        string reviewee_key FK
+        string rating_category_key FK
+        float score
+        float rating_scale_score
+    }
+
+    %% -----------------------------
+    %% TABLE: FACT_AUTOQA_ROOT_CAUSE
+    %% -----------------------------
+    FACT_AUTOQA_ROOT_CAUSE {
+        string autoqa_root_cause_key PK
+        string autoqa_rating_key FK
+        float category
+        float root_cause_count
+        string root_cause
+    }
+
+    %% -----------------------------
+    %% TABLE: FACT_MANUAL_REVIEWS
+    %% -----------------------------
+    FACT_MANUAL_REVIEWS {
+        string manual_review_key PK
+        int review_id
+        string payment_key FK
+        string team_key FK
+        string reviewer_key FK
+        string reviewee_key FK
+        int date_key_created FK
+        int date_key_updated FK
+        int date_key_conversation FK
+        float score
+    }
+
+    %% -----------------------------
+    %% TABLE: FACT_MANUAL_RATINGS
+    %% -----------------------------
+    FACT_MANUAL_RATINGS {
+        string manual_rating_key PK
+        string manual_review_key
+        string payment_key FK
+        string team_key FK
+        string rating_category_key FK
+        float rating
+        float weight
+        bool critical
+        string cause
+    }
+
+    %% -----------------------------
+    %% TABLE: FACT_CONVERSATIONS
+    %% -----------------------------
+    FACT_CONVERSATIONS {
+        string conversation_key PK
+        string payment_key FK
+        string assignee_key FK
+        int date_key_created FK
+        int date_key_updated FK
+        int date_key_closed FK
+        int message_count
+        bool is_closed
+    }
+
+    %% -----------------------------
+    %% RELATIONSHIPS
+    %% -----------------------------
+    FACT_AUTOQA_REVIEWS }o--|| DIM_DATE : "date_key_created, etc."
+    FACT_AUTOQA_REVIEWS }o--|| DIM_PAYMENT : "payment_key"
+    FACT_AUTOQA_REVIEWS }o--|| DIM_TEAM : "team_key"
+    FACT_AUTOQA_REVIEWS }o--|| DIM_USER : "reviewee_key"
+
+    FACT_AUTOQA_RATINGS }o--|| FACT_AUTOQA_REVIEWS : "autoqa_review_key"
+    FACT_AUTOQA_RATINGS }o--|| DIM_PAYMENT : "payment_key"
+    FACT_AUTOQA_RATINGS }o--|| DIM_TEAM : "team_key"
+    FACT_AUTOQA_RATINGS }o--|| DIM_USER : "reviewee_key"
+    FACT_AUTOQA_RATINGS }o--|| DIM_RATING_CATEGORY : "rating_category_key"
+
+    FACT_AUTOQA_ROOT_CAUSE }o--|| FACT_AUTOQA_RATINGS : "autoqa_rating_key"
+
+    FACT_MANUAL_REVIEWS }o--|| DIM_PAYMENT : "payment_key"
+    FACT_MANUAL_REVIEWS }o--|| DIM_TEAM : "team_key"
+    FACT_MANUAL_REVIEWS }o--|| DIM_USER : "reviewee_key, reviewer_key"
+    FACT_MANUAL_REVIEWS }o--|| DIM_DATE : "date_key_created, date_key_updated, date_key_conversation"
+
+    FACT_MANUAL_RATINGS }o--|| FACT_MANUAL_REVIEWS : "manual_review_key"
+    FACT_MANUAL_RATINGS }o--|| DIM_PAYMENT : "payment_key"
+    FACT_MANUAL_RATINGS }o--|| DIM_TEAM : "team_key"
+    FACT_MANUAL_RATINGS }o--|| DIM_RATING_CATEGORY : "rating_category_key"
+
+    FACT_CONVERSATIONS }o--|| DIM_PAYMENT : "payment_key"
+    FACT_CONVERSATIONS }o--|| DIM_USER : "assignee_key"
+    FACT_CONVERSATIONS }o--|| DIM_DATE : "date_key_created, date_key_updated, date_key_closed"

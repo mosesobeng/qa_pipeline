@@ -1,0 +1,142 @@
+erDiagram
+
+    %% -----------------------------
+    %% TABLE: autoqa_reviews
+    %% -----------------------------
+    autoqa_reviews {
+        string autoqa_review_id PK
+        int payment_id
+        int payment_token_id
+        int external_ticket_id
+        string created_at
+        string conversation_created_at
+        string conversation_created_date
+        int team_id
+        float reviewee_internal_id
+        string updated_at
+    }
+
+    %% -----------------------------
+    %% TABLE: autoqa_ratings
+    %% -----------------------------
+    autoqa_ratings {
+        string autoqa_review_id FK
+        string autoqa_rating_id PK
+        int payment_id
+        int team_id
+        int payment_token_id
+        int external_ticket_id
+        int rating_category_id
+        string rating_category_name
+        float rating_scale_score
+        float score
+        int reviewee_internal_id
+    }
+
+    %% -----------------------------
+    %% TABLE: autoqa_root_cause
+    %% -----------------------------
+    autoqa_root_cause {
+        string autoqa_rating_id FK
+        float category
+        float count
+        string root_cause
+    }
+
+    %% -----------------------------
+    %% TABLE: conversations
+    %% -----------------------------
+    conversations {
+        int payment_id
+        int payment_token_id
+        int external_ticket_id
+        string conversation_created_at
+        string conversation_created_at_date
+        string channel
+        int assignee_id
+        string updated_at
+        string closed_at
+        int message_count
+        string last_reply_at
+        string language
+        string imported_at
+        int unique_public_agent_count
+        float public_mean_character_count
+        float public_mean_word_count
+        int private_message_count
+        int public_message_count
+        string klaus_sentiment
+        boolean is_closed
+        int agent_most_public_messages
+        float first_response_time
+        float first_resolution_time_seconds
+        float full_resolution_time_seconds
+        float most_active_internal_user_id
+        float deleted_at
+    }
+
+    %% -----------------------------
+    %% TABLE: manual_reviews
+    %% -----------------------------
+    manual_reviews {
+        int review_id PK
+        int payment_id
+        int payment_token_id
+        string created
+        string conversation_created_at
+        string conversation_created_date
+        int conversation_external_id
+        int team_id
+        int reviewer_id
+        float reviewee_id
+        float comment_id
+        float scorecard_id
+        string scorecard_tag
+        float score
+        string updated_at
+        int updated_by
+        boolean assignment_review
+        boolean seen
+        boolean disputed
+        float review_time_seconds
+        string assignment_name
+        string imported_at
+    }
+
+    %% -----------------------------
+    %% TABLE: manual_rating
+    %% -----------------------------
+    manual_rating {
+        int payment_id
+        int team_id
+        int review_id FK
+        int category_id
+        float rating
+        string cause
+        int rating_max
+        float weight
+        boolean critical
+        string category_name
+    }
+
+    %% -----------------------------
+    %% RELATIONSHIPS
+    %% -----------------------------
+
+    %% autoqa_reviews -> autoqa_ratings by autoqa_review_id
+    autoqa_reviews ||--|{ autoqa_ratings : "autoqa_review_id"
+
+    %% autoqa_ratings -> autoqa_root_cause by autoqa_rating_id
+    autoqa_ratings ||--|{ autoqa_root_cause : "autoqa_rating_id"
+
+    %% autoqa_reviews (payment_id/payment_token_id/external_ticket_id) <-> conversations
+    %% If you match all three columns (payment_id, payment_token_id, external_ticket_id), 
+    %% they can join to conversations on the same columns.
+    autoqa_reviews ||--|| conversations : "payment_id, payment_token_id, external_ticket_id"
+
+    %% manual_reviews -> manual_rating by review_id
+    manual_reviews ||--|{ manual_rating : "review_id"
+
+    %% manual_reviews can also link to conversations via (payment_id, payment_token_id) 
+    %% plus conversation_external_id -> external_ticket_id if that’s how you align them
+    manual_reviews ||--|| conversations : "payment_id, payment_token_id, conversation_external_id -> external_ticket_id"
