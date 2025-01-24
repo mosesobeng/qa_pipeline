@@ -44,12 +44,12 @@ The assessment source zip file is ingested from the orginal google drive path an
 
 ---
 
-## 3. DBT Model Implementation
+## 3. Data Model Implementation
 
 I rely on **incremental** logic with `unique_key` in each dimension/fact. This allows partial loads, merges new columns, and handles schema changes. I test each model with not_null, unique, and relationship constraints in `schema.yml`.
 
 For more detail, see:
-- **[Doc #1: DBT Implementation & Testing](docs/dbt_implementation_testing.md)**
+- **[Doc #1: DBT Implementation & Testing](docs/data_implementation.md)**
 
 ---
 
