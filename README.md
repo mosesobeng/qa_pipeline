@@ -133,7 +133,7 @@ For more detail, see:
 For more detail, see:
  **[Doc: Dashboarding](docs/dashboarding.md)**
 
-- **[LINK: Dashboard ](https://public.tableau.com/app/profile/moses.obeng/viz/qa_dashboard_/Overview?publish=yes)**
+- **[LINK: Dashboard ](https://public.tableau.com/app/profile/moses.obeng/viz/qa_dashboard/Dashboard14?publish=yes)**
 
 ---
 
